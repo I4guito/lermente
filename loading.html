@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregando...</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        #progress-bar {
+            width: 300px;
+            height: 30px;
+            border: 1px solid #ccc;
+            position: relative;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+        #filler {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 0;
+            position: absolute;
+            border-radius: 5px;
+        }
+        .loading-text {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #e8491d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d13a1a;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Carregando...</h1>
+
+    <div id="progress-bar">
+        <div id="filler"></div>
+    </div>
+
+    <p class="loading-text" id="loading-text">Verificando seu número...</p>
+
+    <button onclick="voltarParaIndex()">Voltar</button>
+
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var numeroDigitado = urlParams.get('numero');
+        
+        var progress = 0;
+        var loadingTexts = [
+            "Verificando seu número...",
+            "Fazendo análise cognitiva de sua mente...",
+            "Explorando a resposta de seus neurônios...",
+            "Finalizando análise da mente do usuário..."
+        ];
+
+        function atualizarProgresso() {
+            progress += 20;
+            document.getElementById('filler').style.width = progress + '%';
+
+            var index = progress / 20 - 1;
+            document.getElementById('loading-text').innerText = loadingTexts[index];
+
+            if (progress < 100) {
+                setTimeout(atualizarProgresso, 2000);
+            } else {
+                setTimeout(function() {
+                    alert("O número que você pensou foi: " + numeroDigitado);
+                }, 1000);
+            }
+        }
+
+        function voltarParaIndex() {
+            window.location.href = 'index.html';
+        }
+
+        setTimeout(atualizarProgresso, 2000);
+    </script>
+
+</body>
+</html>
